@@ -1,36 +1,36 @@
 // LINEAR REGRESSION METHOD
 //  To model the relationship between an independent variable and dependent variable by the following equation: y = ax + b where y = f(x); x∈[R] and y∈[R].
 
-var val_check = function(x, y) {
-    // Checking if all x and y values are numbers. Checking x.length and y.length are the same.
-    
-    var flag = 0;
-    if (typeof x == "object" && typeof y == typeof x && x.length == y.length) {
-        flag = 1;
-        for (var val of x) {
-            if (typeof val != "number") {
-                flag = 2;
-                break
-            }
-        }
-        for (var val of y) {
-            if (typeof val != "number") {
-                flag = 2;
-                break
-            }
-        }
-    }
-    else {
-        flag = 2;
-    }
-
-    return flag;
-}
-
-function linear_reg(x, y, val_check) {
+function linear_reg(x, y) {
     //Parameters:
     //  x:          x values as an array.
     //  y:          y values as an array.
+
+    function val_check(x, y) {
+        // Checking if all x and y values are numbers. Checking x.length and y.length are the same.
+        
+        var flag = 0;
+        if (typeof x == "object" && typeof y == typeof x && x.length == y.length) {
+            flag = 1;
+            for (var val of x) {
+                if (typeof val != "number") {
+                    flag = 2;
+                    break
+                }
+            }
+            for (var val of y) {
+                if (typeof val != "number") {
+                    flag = 2;
+                    break
+                }
+            }
+        }
+        else {
+            flag = 2;
+        }
+    
+        return flag;
+    }
 
     var a;
     var b;
@@ -98,7 +98,7 @@ if (require.main == module) {
     var y   = [-1,0.1,0.9,2.1,2.9,4.2,4.8];
 
     // Running bisection method:
-    var result = linear_reg(x, y, val_check);
+    var result = linear_reg(x, y);
 
     // Print result:
     console.log(result)
