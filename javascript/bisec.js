@@ -30,7 +30,7 @@ function bisec(a, b, max_error, max_iter, fun) {
         flag:       flag,    // method flag.
         error:      error,   // relative error.
         iter:       i,       // number of iterations.
-        comment:    undefined, // comment of the execution.
+        comment:    comment, // comment of the execution.
     };     
 
     // Running the method:
