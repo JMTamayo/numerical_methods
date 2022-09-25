@@ -98,7 +98,7 @@ if (require.main == module) {
     var fun         = function(x) {return Math.sin(x)}
 
     // Running bisection method:
-    result = bisec(a, b, max_error, max_iter, fun);
+    var result = bisec(a, b, max_error, max_iter, fun);
 
     // Print result:
     console.log(result)
