@@ -1,41 +1,41 @@
 // LINEAR REGRESSION METHOD
 //  To model the relationship between an independent variable and dependent variable by the following equation: y = ax + b where y = f(x); x∈[R] and y∈[R].
 
+function val_check(x, y) {
+    // Checking if all x and y values are numbers. Checking x.length and y.length are the same.
+    
+    var flag = 0;
+    if (typeof x == "object" && typeof y == typeof x && x.length == y.length) {
+        flag = 1;
+        for (var val of x) {
+            if (typeof val != "number") {
+                flag = 2;
+                break
+            }
+        }
+        for (var val of y) {
+            if (typeof val != "number") {
+                flag = 2;
+                break
+            }
+        }
+    }
+    else {
+        flag = 2;
+    }
+
+    return flag;
+}
+
 function linear_reg(x, y) {
     //Parameters:
     //  x:          x values as an array.
     //  y:          y values as an array.
 
-    function val_check(x, y) {
-        // Checking if all x and y values are numbers. Checking x.length and y.length are the same.
-        
-        var flag = 0;
-        if (typeof x == "object" && typeof y == typeof x && x.length == y.length) {
-            flag = 1;
-            for (var val of x) {
-                if (typeof val != "number") {
-                    flag = 2;
-                    break
-                }
-            }
-            for (var val of y) {
-                if (typeof val != "number") {
-                    flag = 2;
-                    break
-                }
-            }
-        }
-        else {
-            flag = 2;
-        }
-    
-        return flag;
-    }
-
     var a;
     var b;
     var r2;
-    var flag    = 0;
+    var flag;
     var comment = "Initializing method";
 
     var flag = check_flag = val_check(x, y);
