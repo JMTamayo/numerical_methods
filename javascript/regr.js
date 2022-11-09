@@ -1,4 +1,4 @@
-const { matrix, transpose, pow, multiply, inv, mean } = require("mathjs");
+const { matrix, transpose, pow, multiply, inv, mean, log, exp } = require("mathjs");
 
 let regr = {};
 
@@ -38,7 +38,22 @@ let regr = {};
 
             };
             return flag;
+        },
+
+        exp: function(x, y) {
+            let flag = regr.checkVal.poly(x, y, 1);
+
+            if(flag === 1) {
+                y.forEach(element => {
+                    if(element <= 0) {
+                        flag = 0;
+                    }
+                });
+            }
+
+            return flag;
         }
+
     };
 
 //Function to calculate error:
@@ -58,7 +73,7 @@ let regr = {};
     }    
     
 //Polynomial regression:
-    regr.poly = function(x, y , deg) {
+    regr.poly = function(x, y, deg) {
 
         let result = {
             coef:       [],
@@ -69,7 +84,7 @@ let regr = {};
 
         };
 
-        result.flag = regr.checkVal.poly(x, y, deg);
+        result.flag = this.checkVal.poly(x, y, deg);
         const n = x.length;
 
         if(result.flag === 0 || deg >= n) {
@@ -120,13 +135,53 @@ let regr = {};
         return result;
     }
 
-if (require.main == module) {
-    // Function parameters:
-        let x   = [1, 2, 4, 8];
-        let y   = [3, 4, 3, 10];
-        let deg = 3;
+    regr.exp = function(x, y) {
+        let result = {
+            coef:       [],
+            fun:        undefined, 
+            R2:         undefined,
+            flag:       undefined,
+            msg:        undefined
 
-    // Running Regression and print result:
-        let r = regr.poly(x, y, deg);
-        console.log(r);
-}
+        };
+
+        result.flag = this.checkVal.exp(x, y);
+        const deg = 1;
+        let logy = [];
+
+        y.forEach(element => {
+            logy.push(log(element));
+        });
+        
+        result = this.poly(x, logy, deg);
+        result.coef[0] = exp(result.coef[0]);
+        result.fun = function(x) {
+            return result.coef[0]*exp(result.coef[1]*x);
+        }
+        result.R2 = this.error.R2(x, y, result.fun);
+
+        return result;
+    }
+
+if (require.main == module) {
+    let x, y, deg;
+
+    // Example of Polynomial Regression:
+        // Function parameters:
+            x   = [1, 2, 4, 8];
+            y   = [3, 4, 3, 10];
+            deg = 3;
+
+        // Running Regression and print result:
+            console.log("Polynomial Regression Example");
+            console.log(regr.poly(x, y, deg));
+
+    // Example of Exponential Regression:
+        // Function parameters:
+            x   = [2, 2.1, 3, 5];
+            y   = [4, 5, 7.9, 32];
+
+        // Running Regression and print result:
+            console.log("Exponential Regression Example");
+            console.log(regr.exp(x, y));
+    }
