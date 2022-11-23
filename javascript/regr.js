@@ -174,7 +174,7 @@ if (require.main == module) {
 
         // Running Regression and print result:
             console.log("Polynomial Regression Example");
-            console.log(regr.poly(x, y, deg));
+            console.table(regr.poly(x, y, deg));
 
     // Example of Exponential Regression:
         // Function parameters:
@@ -183,5 +183,5 @@ if (require.main == module) {
 
         // Running Regression and print result:
             console.log("Exponential Regression Example");
-            console.log(regr.exp(x, y));
+            console.table(regr.exp(x, y));
     }
